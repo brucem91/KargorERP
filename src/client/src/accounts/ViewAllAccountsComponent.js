@@ -52,10 +52,10 @@ class ViewAllAccountsComponent extends Component {
         return (
             <div>
                 <input type="text" value={this.state.searchTerms || ''} onChange={this.handleKeywordChange} />
-                <table className="table table-striped">
+                <table className="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Product</th>
+                            <th>Account</th>
                             <th>Product</th>
                             <th>Product</th>
                         </tr>

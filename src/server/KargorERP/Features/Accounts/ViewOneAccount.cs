@@ -1,7 +1,7 @@
 namespace KargorERP.Features.Accounts
 {
-    public class ViewAccount
+    public class ViewOneAccount
     {
-        
+
     }
 }

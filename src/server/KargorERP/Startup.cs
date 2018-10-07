@@ -14,7 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
 using KargorERP.Data;
+using KargorERP.Features;
 using KargorERP.Utilities;
+using KargorERP.Services;
 
 namespace KargorERP
 {
@@ -43,6 +45,10 @@ namespace KargorERP
                 if (DatabaseUtilities.Client == DatabaseUtilities.PostgresClient) opt.UseNpgsql(DatabaseUtilities.ConnectionString);
                 if (DatabaseUtilities.Client == DatabaseUtilities.SqlServerClient) opt.UseSqlServer(DatabaseUtilities.ConnectionString);
             });
+
+            services.RegisterAllClassesThatInheritType<BaseFeature>();
+            services.RegisterAllClassesThatInheritType<BaseService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
