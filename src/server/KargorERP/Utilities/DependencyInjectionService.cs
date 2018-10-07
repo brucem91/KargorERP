@@ -18,20 +18,12 @@ namespace KargorERP.Utilities
     {
         public static void RegisterAllClassesThatInheritType<T>(this IServiceCollection services)
         {
-            var TypesToRegister = new List<Type>();
-            var all = Assembly.GetEntryAssembly().GetReferencedAssemblies().Select(Assembly.Load).SelectMany(x => x.DefinedTypes).Where(type => typeof(T).GetTypeInfo().IsAssignableFrom(type.AsType()));
+            var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t != typeof(T) && typeof(T).IsAssignableFrom(t));
 
-            foreach (var ti in all)
+            foreach (var type in types)
             {
-                Console.WriteLine(ti.Name);
-                var t = ti.AsType();
-                if (t.Equals(typeof(T)))
-                {
-                    Console.WriteLine(t.Name);
-                }
+                services.AddTransient(type);
             }
-
-            // return default(T);
         }
     }
 }

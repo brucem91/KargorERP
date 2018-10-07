@@ -1,6 +1,6 @@
 namespace KargorERP.Features.Accounts
 {
-    public class CreateAccount
+    public class UpdateAccountFeature : BaseFeature
     {
         
     }

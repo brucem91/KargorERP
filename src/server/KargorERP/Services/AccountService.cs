@@ -17,15 +17,31 @@ namespace KargorERP.Services
     public class AccountService : BaseService
     {
         protected ViewAllAccountsFeature _viewAllAccountsFeature;
+        protected ViewOneAccountFeature _viewOneAccountFeature;
+        protected CreateAccountFeature _createAccountFeature;
+        protected UpdateAccountFeature _updateAccountFeature;
 
-        public AccountService(ViewAllAccountsFeature viewAllAccountsFeature)
+        public AccountService(ViewAllAccountsFeature viewAllAccountsFeature, ViewOneAccountFeature viewOneAccountFeature, CreateAccountFeature createAccountFeature, UpdateAccountFeature updateAccountFeature)
         {
             _viewAllAccountsFeature = viewAllAccountsFeature;
+            _viewOneAccountFeature = viewOneAccountFeature;
+            _createAccountFeature = createAccountFeature;
+            _updateAccountFeature = updateAccountFeature;
         }
 
         public async Task<List<Account>> ViewAllAccounts()
         {
             return await _viewAllAccountsFeature.Execute();
+        }
+
+        public async Task<Account> CreateAccount(CreateAccountViewModel model)
+        {
+            return await _createAccountFeature.Execute(model);
+        }
+
+        public async Task<Account> ViewOneAccount(Guid id)
+        {
+            return await _viewOneAccountFeature.Execute(id);
         }
     }
 }

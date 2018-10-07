@@ -38,6 +38,7 @@ namespace KargorERP.Controllers
                 var account = new Account()
                 {
                     Name = model.Name,
+                    AccountNumber = model.AccountNumber,
                     AddressLine1 = model.AddressLine1,
                     AddressLine2 = model.AddressLine2,
                     AddressLine3 = model.AddressLine3,
