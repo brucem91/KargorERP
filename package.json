@@ -4,9 +4,16 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "",
-        "publish": "cd src/server/KargorERP && dotnet publish -o ../../../dist/"
+        "client": "cd src/client && npm start",
+        "server": "cd src/server/KargorERP && dotnet watch run",
+        "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+        "publish-client": "cd src/client && npm run build && cp -a build/. ../../dist/wwwroot/",
+        "publish-server": "cd src/server/KargorERP && dotnet publish -c Release -o ../../../dist/ && cd ../../../ && cp .env.example dist/.env.example",
+        "publish": "npm run publish-server && npm run publish-client"
     },
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+        "concurrently": "^4.0.1"
+    }
 }
