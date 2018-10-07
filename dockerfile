@@ -12,9 +12,9 @@ RUN dotnet restore
 COPY ./src/server/. ../
 RUN dotnet publish -c Release -o ../../../dist/
 WORKDIR /app
-RUN ls
 
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
 COPY --from=server-env ./app/dist/. .
 COPY --from=client-env ./app/src/client/build/. ./wwwroot/.
+ENTRYPOINT [ "dotnet", "KargorERP.dll" ]
