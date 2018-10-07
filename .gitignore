@@ -1,0 +1,14 @@
+**/.env
+
+**/dist/
+**/bin/
+**/obj/
+
+**/node_modules/
+**/packages/
+**/package-lock.json
+
+**/.vs/
+**/.vscode/
+
+**/.DS_Store
