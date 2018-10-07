@@ -1,21 +1,17 @@
 import React, { Component } from "react";
 import { Route, HashRouter, NavLink } from "react-router-dom";
 import Menu from './menu';
+import ViewAllAccountsComponent from './accounts/ViewAllAccountsComponent';
 
 class Main extends Component {
     render() {
         return (
             <HashRouter>
                 <div>
-                <Menu />
-                <div className="container">
+                    <Menu />
+                    <div className="container-fluid">
                         <div className="col-md-12">
-                            {/* <Route exact path="/" component={Home} /> */}
-                            <h2>Hello World</h2>
-                            {/* <Route path="/stuff" component={Stuff} />
-                            <Route path="/contact" component={Contact} />
-                            <Route path="/products" component={Products} />
-                            <Route path="/users" component={Users} /> */}
+                            <Route exact path="/accounts" component={ViewAllAccountsComponent} />
                         </div>
                     </div>
                 </div>

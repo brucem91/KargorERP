@@ -63,5 +63,26 @@ namespace KargorERP.Controllers
 
             return Ok(account);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] CreateAccountViewModel model)
+        {
+            var account = await _ctx.Accounts.FirstOrDefaultAsync(x => x.AccountId == id);
+            if (account == null) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                account.Name = model.Name;
+                account.AddressLine1 = model.AddressLine1;
+                account.AddressLine2 = model.AddressLine2;
+                account.AddressLine3 = model.AddressLine3;
+                account.UpdatedOn = DateTime.UtcNow;
+
+                await _ctx.SaveChangesAsync();
+                return Ok();
+            }
+
+            return BadRequest(ModelState);
+        }
     }
 }
