@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 using KargorERP.Data;
 using KargorERP.Models;
+using KargorERP.Services;
 using KargorERP.ViewModels;
 
 namespace KargorERP.Controllers
@@ -17,17 +18,17 @@ namespace KargorERP.Controllers
     [Route("api/accounts")]
     public class AccountsController : Controller
     {
-        protected ApplicationContext _ctx;
+        protected AccountService _accountService;
 
-        public AccountsController(ApplicationContext ctx)
+        public AccountsController(AccountService accountService)
         {
-            _ctx = ctx;
+            _accountService = accountService;
         }
 
         [HttpGet]
         public async Task<List<Account>> Index()
         {
-            return await _ctx.Accounts.ToListAsync();
+            return await _accountService.ViewAllAccounts();
         }
 
         [HttpPost]
@@ -35,52 +36,24 @@ namespace KargorERP.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = new Account()
-                {
-                    Name = model.Name,
-                    AccountNumber = model.AccountNumber,
-                    AddressLine1 = model.AddressLine1,
-                    AddressLine2 = model.AddressLine2,
-                    AddressLine3 = model.AddressLine3,
-                    CreatedOn = DateTime.UtcNow
-                };
-
-                account.UpdatedOn = account.CreatedOn;
-
-                _ctx.Accounts.Add(account);
-                await _ctx.SaveChangesAsync();
-
-                return Ok(account);
+                return Ok(await _accountService.CreateAccount(model));
             }
 
             return BadRequest(ModelState);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<Account> Get(Guid id)
         {
-            var account = await _ctx.Accounts.FirstOrDefaultAsync(x => x.AccountId == id);
-            if (account == null) return NotFound();
-
-            return Ok(account);
+            return await _accountService.ViewOneAccount(id);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, [FromBody] CreateAccountViewModel model)
         {
-            var account = await _ctx.Accounts.FirstOrDefaultAsync(x => x.AccountId == id);
-            if (account == null) return NotFound();
-
             if (ModelState.IsValid)
             {
-                account.Name = model.Name;
-                account.AddressLine1 = model.AddressLine1;
-                account.AddressLine2 = model.AddressLine2;
-                account.AddressLine3 = model.AddressLine3;
-                account.UpdatedOn = DateTime.UtcNow;
-
-                await _ctx.SaveChangesAsync();
-                return Ok();
+                return Ok(await _accountService.UpdateAccount(id, model));
             }
 
             return BadRequest(ModelState);

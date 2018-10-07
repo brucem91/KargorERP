@@ -43,5 +43,10 @@ namespace KargorERP.Services
         {
             return await _viewOneAccountFeature.Execute(id);
         }
+
+        public async Task<Account> UpdateAccount(Guid id, CreateAccountViewModel model)
+        {
+            return await _updateAccountFeature.Execute(id, model);
+        }
     }
 }
