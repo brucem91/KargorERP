@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from "react-router-dom";
 import axios from 'axios';
 
 class AccountRow extends Component {
@@ -52,6 +53,7 @@ class ViewAllAccountsComponent extends Component {
         return (
             <div>
                 <input type="text" value={this.state.searchTerms || ''} onChange={this.handleKeywordChange} />
+                <NavLink className="btn btn-primary" to="/accounts/create">Create Account</NavLink>
                 <table className="table table-striped table-sm">
                     <thead>
                         <tr>
