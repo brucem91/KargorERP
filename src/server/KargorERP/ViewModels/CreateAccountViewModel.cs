@@ -1,12 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KargorERP.Models
+namespace KargorERP.ViewModels
 {
-    public class Account
+    public class CreateAccountViewModel
     {
-        [Key]
-        public Guid AccountId { get; set; }
         [Required]
         [MaxLength(256)]
         public string Name { get; set; }
@@ -16,7 +14,5 @@ namespace KargorERP.Models
         public string AddressLine2 { get; set; }
         [MaxLength(256)]
         public string AddressLine3 { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }
     }
 }

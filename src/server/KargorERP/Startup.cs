@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
+
+using KargorERP.Data;
+using KargorERP.Utilities;
 
 namespace KargorERP
 {
@@ -31,8 +37,13 @@ namespace KargorERP
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<ApplicationContext>(opt =>
+            {
+                if (DatabaseUtilities.Client == DatabaseUtilities.MySqlClient) opt.UseMySql(DatabaseUtilities.ConnectionString);
+                if (DatabaseUtilities.Client == DatabaseUtilities.PostgresClient) opt.UseNpgsql(DatabaseUtilities.ConnectionString);
+                if (DatabaseUtilities.Client == DatabaseUtilities.SqlServerClient) opt.UseSqlServer(DatabaseUtilities.ConnectionString);
+            });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,17 +59,12 @@ namespace KargorERP
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Default}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }

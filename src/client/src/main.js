@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { Route, HashRouter } from "react-router-dom";
+import { Route, HashRouter, NavLink } from "react-router-dom";
+import Menu from './menu';
 
 class Main extends Component {
     render() {
         return (
             <HashRouter>
                 <div>
-                    {/* <Menu /> */}
-                    <div className="container">
+                <Menu />
+                <div className="container">
                         <div className="col-md-12">
                             {/* <Route exact path="/" component={Home} /> */}
                             <h2>Hello World</h2>
