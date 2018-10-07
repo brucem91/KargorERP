@@ -1,6 +1,6 @@
 using System;
 
-namespace KargorERP.Models
+namespace KargorERP.ViewModels
 {
     public class ErrorViewModel
     {

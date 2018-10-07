@@ -44,7 +44,7 @@ namespace KargorERP
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Default/Error");
                 app.UseHsts();
             }
 
@@ -56,7 +56,7 @@ namespace KargorERP
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Default}/{action=Index}/{id?}");
             });
         }
     }
