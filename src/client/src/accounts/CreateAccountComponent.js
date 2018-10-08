@@ -1,43 +1,30 @@
 import React, { Component } from 'react';
 // import { BrowserHistory } from 'react-router-dom';
-
+import InputComponent from '../components/InputComponent';
 import axios from 'axios';
 
 class CreateAccountComponent extends Component {
 
     constructor(props) {
         super(props);
-
-        this.Name = React.createRef();
-        this.AccountNumber = React.createRef();
-        this.AddressLine1 = React.createRef();
-        this.AddressLine2 = React.createRef();
-        this.AddressLine3 = React.createRef();
     }
+
+    // handleName = (event) => {
+    //     this.setState((state) => 
+    // }
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        var self = this;
-        alert(self);
-        // BrowserHistory.push('/abc');
-        axios.post('/api/accounts', this.account).then((res) => {
-            if (res.status === 400) self.setState({ errors: res.data });
-            if (res.status == 200) {
-                // History.
-                //location.pathname = '/accounts/view';
-            }
-        }).catch((err) => {
-
-        });
     }
 
     render() {
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <div className="form-group">
+                <InputComponent type={'text'} title={'Account Name'} name={'Name'} value={this.state.newAccount.Name} handleChange={this.handleName} />
+                {/* <div className="form-group">
                     <label htmlFor="Name">Name</label>
-                    <input type="text" className="form-control" ref={this.Name}></input>
-                </div>
+                    <input type="text" className="form-control" ref={(input) => this.input = input}></input>
+                </div> */}
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         );
