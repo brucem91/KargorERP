@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/forms.css';
 
 const InputError = (props) => {
   if (props.errors.length === 1) {
