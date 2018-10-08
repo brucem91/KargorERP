@@ -6,7 +6,7 @@ class AccountRow extends Component {
     render() {
         return (
             <tr>
-                <td>{this.props.account.Name}</td>
+                <td>{this.props.account.AccountNumber}</td>
                 <td>{this.props.account.Name}</td>
             </tr>
         )
@@ -57,8 +57,8 @@ class ViewAllAccountsComponent extends Component {
                 <table className="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Account</th>
-                            <th>Product</th>
+                            <th>Account Number</th>
+                            <th>Full Name</th>
                             <th>Product</th>
                         </tr>
                     </thead>

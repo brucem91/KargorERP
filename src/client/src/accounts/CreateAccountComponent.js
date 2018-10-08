@@ -29,21 +29,13 @@ class CreateAccountComponent extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault();
 
-        let self = this;
-
         axios.post('/api/accounts', this.state.newAccount).then((res) => {
-
+            this.props.history.push('/accounts/view?accountid=' + res.data.AccountId);
         }).catch((err) => {
-            let res = err.response;
-            if (res === undefined) return;
-
-            self.setState({ newAccountErrors: res.data });
+            if (err.response === undefined) return;
+            this.setState({ newAccountErrors: err.response.data });
         });
     }
-
-    handleClearForm = () => {
-
-    };
 
     render() {
         return (
