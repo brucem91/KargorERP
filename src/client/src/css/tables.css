@@ -1,0 +1,7 @@
+.table {
+    background-color:#fff;    
+}
+
+.table, .table > thead {
+    border-radius:4px!important;
+}
