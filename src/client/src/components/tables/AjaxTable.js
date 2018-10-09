@@ -6,8 +6,9 @@ class AjaxTable extends Component {
 
         this.state = {
             pageSize: Number(props.pageSize || 25),
-            searchable: props.searchable || true,
             ajaxUrl: props.ajaxUrl,
+            searchable: props.searchable || true,
+            searchTerms: '',
             columns: [],
             records: [],
             filteredRecords: [],
@@ -15,6 +16,14 @@ class AjaxTable extends Component {
             maxResponseRecordLimit: 5000
         };
     }
+
+    handleSearchTerms = (e) => {
+        this.setState({ searchTerms: e.target.value }, () => this.renderTable());
+    };
+
+    renderTable = () => {
+
+    };
 }
 
 export default AjaxTable;
