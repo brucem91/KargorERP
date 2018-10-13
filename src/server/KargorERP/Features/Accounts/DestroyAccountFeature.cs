@@ -29,6 +29,8 @@ namespace KargorERP.Features.Accounts
 
         private async Task<List<string>> CanAccountBeDestroyed(Account account)
         {
+            await Task.Yield();
+
             var errors = new List<string>();
 
             return errors;
