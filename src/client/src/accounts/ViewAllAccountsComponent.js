@@ -1,22 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ResourceTable from '../components/tables/ResourceTable';
 
-class ViewAllAccountsComponent extends Component {
-    constructor(props) {
-        super(props);
+const ajaxUrl = '/api/accounts';
+const primaryKey = 'AccountId';
+const columns = [
+    { dataField: 'Name', text: 'Account' },
+    { dataField: 'AccountNumber', text: 'Account Number' }
+];
 
-        this.state = {
-            ajaxUrl: '/api/accounts',
-            columns: [
-                { 'data': 'Name', 'label': 'Account' },
-                { 'data': 'AccountNumber', 'label': 'Account Number' }
-            ]
-        }
-    }
-
-    render() {
-        return (<ResourceTable ajaxUrl={this.state.ajaxUrl} columns={this.state.columns} />);
-    }
-}
-
-export default ViewAllAccountsComponent
+export default () => <ResourceTable primaryKey={primaryKey} ajaxUrl={ajaxUrl} columns={columns} />

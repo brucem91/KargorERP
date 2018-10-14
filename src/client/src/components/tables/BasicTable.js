@@ -5,26 +5,27 @@ class BasicTable extends Component {
         super(props);
 
         this.state = {
-            columns: (props.columns || []),
-            records: (props.records || [])
+            headers: this.getHeaderColumns(props.columns || []),
+            rows: this.getBodyRows(props.columns || [], props.records || []),
+            primaryKey: (props.primaryKey || '')
         };
     }
 
-    getHeaderColumns = () => {
-        return this.state.columns.map((column) => { return (<th>{column.label}</th>) });
+    getHeaderColumns = (columns) => {
+        return columns.map((column) => { return (<th key={column.label}>{column.label}</th>) });
     };
 
-    getBodyRows = () => {
-        if (this.state.records.length === 0) return (<tr><td>No Records Found</td></tr>);
+    getBodyRows = (columns, records) => {
+        if (records.length === 0) return (<tr><td>No Records Found</td></tr>);
 
-        return this.state.records.map((record) => {
-            let columns = this.columns.map((column) => {
+        return records.map((record) => {
+            let _columns = this.columns.map((column) => {
                 if (typeof (this.column.data) === typeof ('')) return (<td>{record[this.column.data]}</td>);
 
                 return '';
             });
 
-            return <tr>(columns)</tr>
+            return <tr key={record[this.state.primaryKey]}>(_columns)</tr>
         });
     };
 
@@ -32,10 +33,10 @@ class BasicTable extends Component {
         return (
             <table className="table">
                 <thead>
-                    <tr>{this.getHeaderColumns()}</tr>
+                    <tr>{this.state.headers}</tr>
                 </thead>
                 <tbody>
-                    {this.getBodyRows()}
+                    {this.state.rows}
                 </tbody>
             </table>
         )
