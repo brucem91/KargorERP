@@ -1,6 +1,5 @@
 import React from 'react';
 import ResourceTable from '../components/tables/ResourceTable';
-import { NavLink } from "react-router-dom";
 
 const ajaxUrl = '/api/accounts';
 const primaryKey = 'AccountId';

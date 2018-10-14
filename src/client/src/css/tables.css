@@ -5,3 +5,7 @@
 .table, .table > thead {
     border-radius:4px!important;
 }
+
+/* .table > tbody > tr > td {
+    padding: 0px;
+} */

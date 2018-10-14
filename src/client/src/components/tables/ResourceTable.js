@@ -13,11 +13,25 @@ class ResourceTable extends Component {
     constructor(props) {
         super(props);
 
+        let primaryKeyFormatter = (cell, row) => {
+            let path = [
+                window.location.hash.replace('#/', '/'),
+                '/view?',
+                this.props.primaryKey,
+                '=',
+                row[this.props.primaryKey]
+            ].join('');
+
+            return (<NavLink to={path}>{cell}</NavLink>);
+        };
+
         this.state = {
             ajaxUrl: this.props.ajaxUrl,
             primaryKey: this.props.primaryKey || '',
             columns: (this.props.columns || []).map((column, idx) => {
                 if (column.sort !== false) column.sort = true;
+                if (!column.formatter) column.formatter = primaryKeyFormatter;
+
                 return column;
             }),
             records: [],
