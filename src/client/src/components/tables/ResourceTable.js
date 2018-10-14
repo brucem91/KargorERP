@@ -6,6 +6,9 @@ import { NavLink } from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 
+import '../../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.css'
+import '../../../node_modules/react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.css'
+
 class ResourceTable extends Component {
     constructor(props) {
         super(props);
@@ -13,13 +16,13 @@ class ResourceTable extends Component {
         this.state = {
             ajaxUrl: this.props.ajaxUrl,
             primaryKey: this.props.primaryKey || '',
-            columns: (this.props.columns || []).map((column) => {
+            columns: (this.props.columns || []).map((column, idx) => {
                 if (column.sort !== false) column.sort = true;
-
                 return column;
             }),
             records: [],
-            filteredRecords: []
+            filteredRecords: [],
+            searchTerms: ''
         };
 
         this.fetchRecords();
@@ -33,9 +36,36 @@ class ResourceTable extends Component {
         });
     }
 
-    handleSearchTerms = (e) => {
-        let records = this.state.records
-    }
+    handleSearchTerms = (event) => {
+        if (!event) event = { target: { value: '' } };
+
+        let records = this.state.records;
+        let props = this.state.columns.map((c) => { return c.dataField });
+
+        let terms = event.target.value.toLowerCase();
+        while (terms.indexOf('  ') > -1) terms.replace('  ', ' ');
+
+        if (terms !== '') {
+            records = records.filter((record) => {
+                let textToSearch = [];
+                for (var prop of props) {
+                    if (typeof (record[prop]) === typeof ('')) {
+                        textToSearch.push((record[prop] || '').trim());
+                    }
+                }
+
+                textToSearch = textToSearch.join(' ').toLowerCase();
+                for (var term of terms.split(' ')) {
+                    if (textToSearch.indexOf(term) === -1) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+
+        this.setState({ searchTerms: event.target.value, filteredRecords: records });
+    };
 
     render() {
         return (
@@ -53,7 +83,7 @@ class ResourceTable extends Component {
                         <NavLink className="btn btn-primary" to="/accounts/create">Create Account</NavLink>
                     </div>
                 </div>
-                <BootstrapTable keyField={this.state.primaryKey || 'id'} data={this.state.records} columns={this.state.columns} pagination={paginationFactory()} />
+                <BootstrapTable keyField={this.state.primaryKey || 'id'} data={this.state.filteredRecords} columns={this.state.columns} pagination={paginationFactory()} bootstrap4={true} loading={true} />
             </div>
         );
     }
