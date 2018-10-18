@@ -1,13 +1,16 @@
 .table {
-    background-color:#fff;    
+    background-color: #fff;
 }
 
-.table, .table > thead {
-    border-radius:4px!important;
+.table, .table>thead {
+    border-radius: 4px!important;
 }
 
 @media only screen and (max-width: 992px) {
-    .table > thead > tr > th.column-optional, .table > tbody > tr > td.column-optional {
+    .table>thead>tr>th.column-optional, .table>tbody>tr>td.column-optional {
+        display: none;
+    }
+    #pageDropDown {
         display: none;
     }
 }

@@ -39,8 +39,8 @@ class ResourceTable extends Component {
             columns: (this.props.columns || []).map((column, idx) => {
                 if (column.sort !== false) column.sort = true;
                 if (!column.formatter) column.formatter = primaryKeyFormatter;
-                if (!column.classes) column.classes = secondaryColumnFormatter;
-                if (!column.headerClasses) column.headerClasses = secondaryHeaderFormatter;
+                if (!column.classes && column.optional !== false) column.classes = secondaryColumnFormatter;
+                if (!column.headerClasses && column.optional !== false) column.headerClasses = secondaryHeaderFormatter;
                 return column;
             }),
             records: [],
@@ -94,7 +94,7 @@ class ResourceTable extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-lg-4">
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
                                 <span className="input-group-text" id="inputGroup-sizing-default"><FontAwesomeIcon icon={faSearch} /></span>
@@ -102,11 +102,11 @@ class ResourceTable extends Component {
                             <input type="text" value={this.state.searchTerms} onChange={this.handleSearchTerms} className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </div>
-                    <div className="col-md-9 text-right">
+                    <div className="col-md-8 text-right">
                         <NavLink className="btn btn-primary" to="/accounts/create">Create Account</NavLink>
                     </div>
                 </div>
-                <BootstrapTable keyField={this.state.primaryKey || 'id'} data={this.state.filteredRecords} columns={this.state.columns} pagination={paginationFactory()} bootstrap4={true} loading={true} />
+                <BootstrapTable keyField={this.state.primaryKey || 'id'} data={this.state.filteredRecords} columns={this.state.columns} pagination={paginationFactory({sizePerPage: 25})} bootstrap4={true} loading={true} />
             </div>
         );
     }
