@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Route, HashRouter, NavLink } from "react-router-dom";
 import Menu from './menu';
-import ViewAllAccountsComponent from './accounts/ViewAllAccountsComponent';
-import CreateAccountComponent from './accounts/CreateAccountComponent';
-import ViewAccountComponent from './accounts/ViewAccountComponent';
+import Routes from './routes';
 
 class Main extends Component {
     render() {
@@ -13,9 +11,7 @@ class Main extends Component {
                     <Menu />
                     <div className="container-fluid">
                         <div className="col-md-12">
-                            <Route exact path="/accounts" component={ViewAllAccountsComponent} />
-                            <Route exact path="/accounts/create" component={CreateAccountComponent} />
-                            <Route exact path="/accounts/view" component={ViewAccountComponent} />
+                            <Routes />
                         </div>
                     </div>
                 </div>

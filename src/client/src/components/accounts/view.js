@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import query from '../utilities/querystring';
-import field from '../components/Field';
-import Field from '../components/Field';
+import query from '../../utilities/querystring';
+import Field from '../../components/common/Field';
 
 class ViewAccountComponent extends Component {
     constructor(props) {

@@ -10,8 +10,7 @@ WORKDIR /app/src/server/KargorERP
 COPY ./src/server/KargorERP/KargorERP.csproj .
 RUN dotnet restore
 COPY ./src/server/. ../
-# RUN dotnet publish --no-restore -c Release -o ../../../dist/
-RUN dotnet publish -c Release -o ../../../dist/
+RUN dotnet publish --no-restore -c Release -o ../../../dist/
 WORKDIR /app
 
 FROM microsoft/dotnet:2.1-aspnetcore-runtime

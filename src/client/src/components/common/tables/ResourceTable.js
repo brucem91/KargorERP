@@ -6,8 +6,8 @@ import { NavLink } from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 
-import '../../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.css'
-import '../../../node_modules/react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.css'
+import '../../../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.css'
+import '../../../../node_modules/react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.css'
 
 class ResourceTable extends Component {
     constructor(props) {

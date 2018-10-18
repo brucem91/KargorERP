@@ -1,5 +1,5 @@
 import React from 'react';
-import ResourceTable from '../components/tables/ResourceTable';
+import ResourceTable from '../../components/common/tables/ResourceTable';
 
 const ajaxUrl = '/api/accounts';
 const primaryKey = 'AccountId';
