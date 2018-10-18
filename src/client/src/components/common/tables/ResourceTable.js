@@ -25,13 +25,22 @@ class ResourceTable extends Component {
             return (<NavLink to={path}>{cell}</NavLink>);
         };
 
+        let secondaryColumnFormatter = (cell, row, rowIndex, colIndex) => {
+            return (colIndex > 0 ? 'column-optional' : '');
+        }
+
+        let secondaryHeaderFormatter = (col, colIndex) => {
+            return (secondaryColumnFormatter(null, null, null, colIndex));
+        }
+
         this.state = {
             ajaxUrl: this.props.ajaxUrl,
             primaryKey: this.props.primaryKey || '',
             columns: (this.props.columns || []).map((column, idx) => {
                 if (column.sort !== false) column.sort = true;
                 if (!column.formatter) column.formatter = primaryKeyFormatter;
-
+                if (!column.classes) column.classes = secondaryColumnFormatter;
+                if (!column.headerClasses) column.headerClasses = secondaryHeaderFormatter;
                 return column;
             }),
             records: [],

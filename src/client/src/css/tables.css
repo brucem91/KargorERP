@@ -6,6 +6,8 @@
     border-radius:4px!important;
 }
 
-/* .table > tbody > tr > td {
-    padding: 0px;
-} */
+@media only screen and (max-width: 992px) {
+    .table > thead > tr > th.column-optional, .table > tbody > tr > td.column-optional {
+        display: none;
+    }
+}
