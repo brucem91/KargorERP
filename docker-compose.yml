@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - ./data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: MyAw3s0m3PaSS
+       MYSQL_DATABASE: erp
+       MYSQL_USER: erp
+       MYSQL_PASSWORD: MyAw3s0m3PaSS
+
+   erp:
+     depends_on:
+       - db
+     build: .
+     ports:
+       - "8000:80"
+     restart: always
+     environment:
+       DB_CLIENT: mysql
+       DB_HOST: db
+       DB_USER: erp
+       DB_PASSWORD: MyAw3s0m3PaSS
+       DB_DATABASE: erp

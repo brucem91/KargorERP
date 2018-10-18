@@ -1,5 +1,6 @@
 **/.env
 
+**/data/
 **/dist/
 **/bin/
 **/obj/
