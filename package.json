@@ -7,7 +7,8 @@
         "client": "cd src/client && npm start",
         "server": "cd src/server/KargorERP && dotnet watch run",
         "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-        "start-docker": "nodemon -e js,css,html,json,cs,Dockerfile  --exec \"docker-compose down --remove-orphans && docker-compose up -d\"",
+        "docker-build": "docker build -t erp .",
+        "docker-compose": "nodemon -e js,css,html,json,cs,Dockerfile  --exec \"docker-compose down --remove-orphans && docker-compose up -d\"",
         "publish-client": "cd src/client && npm run build && cp -a build/. ../../dist/wwwroot/",
         "publish-server": "cd src/server/KargorERP && dotnet publish -c Release -o ../../../dist/ && cd ../../../ && cp .env.example dist/.env.example",
         "publish": "npm run publish-server && npm run publish-client"
