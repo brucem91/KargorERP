@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "client": "cd src/client && npm start",
+        "client": "cd src/client && npm install && npm start",
         "server": "cd src/server/KargorERP && dotnet watch run",
         "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
         "docker-build": "docker build -t erp .",
