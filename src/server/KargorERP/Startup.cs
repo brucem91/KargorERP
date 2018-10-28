@@ -15,10 +15,9 @@ using Newtonsoft.Json.Serialization;
 
 using KargorERP.Data.Models.Accounts;
 using KargorERP.Data.Utilities;
-using KargorERP.Features;
 using KargorERP.Utilities;
 using KargorERP.Services;
-using KargorERP.Services.Resources;
+using KargorERP.Services.Accounts;
 
 namespace KargorERP
 {
@@ -44,7 +43,8 @@ namespace KargorERP
             services.AddApplicationContext(); // custom code to inject our EntityFrameworkCore ApplicationContext
 
             services.RegisterAllClassesThatInheritType<Service>();
-
+            services.AddTransient<AccountService>();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 

@@ -55,9 +55,8 @@ namespace KargorERP.Data
 
             foreach (var entry in ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted))
             {
-                var entity = entry.Entity as KargorERP.Data.Models.Model;
-
-                entity.DeletedOn = now;
+                entry.State = EntityState.Modified;
+                (entry.Entity as KargorERP.Data.Models.Model).DeletedOn = now;
             }
 
             return base.SaveChangesAsync(cancellationToken);

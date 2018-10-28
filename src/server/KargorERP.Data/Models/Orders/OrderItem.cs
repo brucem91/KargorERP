@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KargorERP.Data.Models.Orders
 {
-    public class OrderItem
+    public class OrderItem : Model
     {
-        [Key]
-        public Guid OrderItemId { get; set; }
         public Guid OrderId { get; set; }
         [Required]
         [MaxLength(256)]
@@ -17,7 +15,5 @@ namespace KargorERP.Data.Models.Orders
         public int Quantity { get; set; }
         [Required]
         public decimal UnitPrice { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }
     }
 }

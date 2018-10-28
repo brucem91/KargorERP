@@ -7,11 +7,6 @@ namespace KargorERP.Controllers
 {
     public class DefaultController : Controller
     {
-        public IActionResult NotFound()
-        {
-            return NotFound();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public ErrorViewModel Error()
         {

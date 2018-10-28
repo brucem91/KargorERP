@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KargorERP.ViewModels
+namespace KargorERP.ViewModels.Accounts
 {
-    public class CreateAccountViewModel
+    public class CreateUpdateAccountViewModel
     {
         [Required]
         [MaxLength(256)]
@@ -11,6 +11,7 @@ namespace KargorERP.ViewModels
         [Required]
         [MaxLength(256)]
         public string AccountNumber { get; set; }
+        [Required]
         [MaxLength(256)]
         public string AddressLine1 { get; set; }
         [MaxLength(256)]
