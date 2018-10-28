@@ -10,7 +10,6 @@ namespace KargorERP
         public static void Main(string[] args)
         {
             EnvironmentUtilities.LoadEnvironmentFromFile();
-            System.Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "PRODUCTION");
 
             CreateWebHostBuilder(args).Build().Run();
         }

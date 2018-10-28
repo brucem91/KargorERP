@@ -1,8 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 using KargorERP.Data.Models.Accounts;
+using KargorERP.Data.Models.Identity;
 using KargorERP.Data.Models.Orders;
-using KargorERP.Data.Models.Users;
 
 namespace KargorERP.Data
 {
@@ -19,5 +31,36 @@ namespace KargorERP.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserPassword> UserPasswords { get; set; }
+        public DbSet<UserSessionToken> UserSessionTokens { get; set; }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var now = DateTime.UtcNow;
+
+            foreach (var entry in ChangeTracker.Entries().Where(x => x.State == EntityState.Added))
+            {
+                var entity = entry.Entity as KargorERP.Data.Models.Model;
+
+                entity.CreatedOn = now;
+                entity.UpdatedOn = now;
+            }
+
+            foreach (var entry in ChangeTracker.Entries().Where(x => x.State == EntityState.Modified))
+            {
+                var entity = entry.Entity as KargorERP.Data.Models.Model;
+
+                entity.UpdatedOn = now;
+            }
+
+            foreach (var entry in ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted))
+            {
+                var entity = entry.Entity as KargorERP.Data.Models.Model;
+
+                entity.DeletedOn = now;
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }

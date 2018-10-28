@@ -21,7 +21,7 @@ namespace KargorERP.Services.Resources
 
         public async Task<List<T>> FetchAll()
         {
-            var query = _ctx.Set<T>().AsQueryable();
+            var query = _ctx.Set<T>().AsQueryable();            
 
             return await query.ToListAsync();
         }

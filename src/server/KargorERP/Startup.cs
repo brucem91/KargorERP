@@ -43,8 +43,6 @@ namespace KargorERP
 
             services.AddApplicationContext(); // custom code to inject our EntityFrameworkCore ApplicationContext
 
-            services.AddTransient<ResourceService<Account>>();
-
             services.RegisterAllClassesThatInheritType<Service>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());

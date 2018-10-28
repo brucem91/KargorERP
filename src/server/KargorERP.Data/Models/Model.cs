@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KargorERP.Data.Models
 {
-    public class Model
+    public abstract class Model
     {
         [Key]
         public Guid Id { get; set; }
