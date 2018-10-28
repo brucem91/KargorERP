@@ -1,6 +1,6 @@
 using System;
 
-namespace KargorERP.Models
+namespace KargorERP.Data.Models.Orders
 {
     public class Order
     {

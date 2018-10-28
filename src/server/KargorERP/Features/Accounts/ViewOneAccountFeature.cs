@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 using KargorERP.Data;
-using KargorERP.Models;
+using KargorERP.Data.Models.Accounts;
 
 namespace KargorERP.Features.Accounts
 {

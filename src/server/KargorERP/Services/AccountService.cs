@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 using KargorERP.Data;
 using KargorERP.Features.Accounts;
-using KargorERP.Models;
+using KargorERP.Data.Models.Accounts;
 using KargorERP.ViewModels;
 
 namespace KargorERP.Services

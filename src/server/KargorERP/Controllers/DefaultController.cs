@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 using Microsoft.AspNetCore.Mvc;
-
-using KargorERP.Models;
 using KargorERP.ViewModels;
 
 namespace KargorERP.Controllers
 {
     public class DefaultController : Controller
     {
-        public IActionResult Index()
+        public IActionResult NotFound()
         {
-            return View();
+            return NotFound();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

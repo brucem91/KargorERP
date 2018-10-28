@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KargorERP.Models
+namespace KargorERP.Data.Models.Orders
 {
     public class OrderItem
     {

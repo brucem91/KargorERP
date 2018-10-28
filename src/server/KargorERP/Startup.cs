@@ -13,10 +13,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
-using KargorERP.Data;
+using KargorERP.Data.Models.Accounts;
+using KargorERP.Data.Utilities;
 using KargorERP.Features;
 using KargorERP.Utilities;
 using KargorERP.Services;
+using KargorERP.Services.Resources;
 
 namespace KargorERP
 {
@@ -39,15 +41,11 @@ namespace KargorERP
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationContext>(opt =>
-            {
-                if (DatabaseUtilities.Client == DatabaseUtilities.MySqlClient) opt.UseMySql(DatabaseUtilities.ConnectionString);
-                if (DatabaseUtilities.Client == DatabaseUtilities.PostgresClient) opt.UseNpgsql(DatabaseUtilities.ConnectionString);
-                if (DatabaseUtilities.Client == DatabaseUtilities.SqlServerClient) opt.UseSqlServer(DatabaseUtilities.ConnectionString);
-            });
+            services.AddApplicationContext(); // custom code to inject our EntityFrameworkCore ApplicationContext
 
-            services.RegisterAllClassesThatInheritType<BaseFeature>();
-            services.RegisterAllClassesThatInheritType<BaseService>();
+            services.AddTransient<ResourceService<Account>>();
+
+            services.RegisterAllClassesThatInheritType<Service>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
@@ -70,7 +68,11 @@ namespace KargorERP
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("Default", "api/{controller}", defaults: new { Controller = "Default", Action = "Index" });
+                routes.MapRoute("Action", "api/{controller}/{action}", defaults: new { Controller = "Default", Action = "NotFound" });
+            });
         }
     }
 }

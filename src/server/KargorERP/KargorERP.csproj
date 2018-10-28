@@ -12,4 +12,9 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KargorERP.Data\KargorERP.Data.csproj" />
+    <ProjectReference Include="..\KargorERP.Services\KargorERP.Services.csproj" />
+  </ItemGroup>
+
 </Project>
