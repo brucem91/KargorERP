@@ -8,7 +8,7 @@ namespace KargorERP.Data.Models
     public abstract class Model
     {
         [Key]
-        [JsonProperty(Order = 1)]
+        [JsonProperty(Order = -1)]
         public Guid Id { get; set; }
         [JsonProperty(Order = 1000)]
         public DateTime CreatedOn { get; set; }

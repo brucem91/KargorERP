@@ -31,21 +31,16 @@ namespace KargorERP.Controllers.Accounts
         [HttpPost]
         public async Task<IActionResult> Post(CreateUpdateAccountViewModel model)
         {
-            if (ModelState.IsValid)
+            var account = new Account()
             {
-                var account = new Account()
-                {
-                    Name = model.Name,
-                    AccountNumber = model.AccountNumber,
-                    AddressLine1 = model.AddressLine1,
-                    AddressLine2 = model.AddressLine2,
-                    AddressLine3 = model.AddressLine3
-                };
+                Name = model.Name,
+                AccountNumber = model.AccountNumber,
+                AddressLine1 = model.AddressLine1,
+                AddressLine2 = model.AddressLine2,
+                AddressLine3 = model.AddressLine3
+            };
 
-                return Ok(await _accountService.CreateAsync(account));
-            }
-
-            return BadRequest(modelState: ModelState);
+            return Ok(await _accountService.CreateAsync(account));
         }
     }
 }

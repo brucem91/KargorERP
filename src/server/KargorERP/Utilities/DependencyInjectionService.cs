@@ -9,9 +9,9 @@ namespace KargorERP.Utilities
     {
         public static void RegisterAllClassesThatInheritType<T>(this IServiceCollection services)
         {
-            var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t != typeof(T) && typeof(T).IsAssignableFrom(t));
+            var types = Assembly.GetEntryAssembly().GetReferencedAssemblies().Select(Assembly.Load).SelectMany(x => x.DefinedTypes);
 
-            foreach (var type in types)
+            foreach (var type in types.Where(t => t != typeof(T) && typeof(T).IsAssignableFrom(t)))
             {
                 services.AddTransient(type);
             }

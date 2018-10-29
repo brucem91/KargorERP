@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
-using KargorERP.Data.Models.Accounts;
 using KargorERP.Data.Utilities;
-using KargorERP.Utilities;
 using KargorERP.Services;
-using KargorERP.Services.Accounts;
+using KargorERP.Utilities;
+using KargorERP.ValidationAttributes;
 
 namespace KargorERP
 {
@@ -41,9 +33,8 @@ namespace KargorERP
             });
 
             services.AddApplicationContext(); // custom code to inject our EntityFrameworkCore ApplicationContext
-
-            services.RegisterAllClassesThatInheritType<Service>();
-            services.AddTransient<AccountService>();
+            services.AddScoped<ModelValidationAttribute>();
+            services.RegisterAllClassesThatInheritType<Service>(); // adds all clases that extend class 'Service' to the DI Container
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
