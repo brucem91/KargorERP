@@ -8,18 +8,22 @@ namespace KargorERP.Data.Models
     public abstract class Model
     {
         [Key]
-        [JsonProperty(Order = -1)]
         public Guid Id { get; set; }
-        [JsonProperty(Order = 1000)]
         public DateTime CreatedOn { get; set; }
-        [JsonProperty(Order = 1001)]
+        public Guid? CreatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
-        [JsonProperty(Order = 1002)]
+        public Guid? UpdatedBy { get; set; }
         public DateTime? DeletedOn { get; set; }
+        public Guid? DeletedBy { get; set; }
 
         public bool ShouldSerializeDeletedOn()
         {
             return (DeletedOn != null);
+        }
+
+        public bool ShouldSerializedDeletedBy()
+        {
+            return (DeletedBy != null);
         }
     }
 }

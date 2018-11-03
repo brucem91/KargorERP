@@ -45,7 +45,7 @@ namespace KargorERP.Data.QueryHelpers
         {
             var props = typeof(T).GetColumnPropertiesForQueryContext();
 
-            for(var i=0; i < props.Count; i++)
+            for (var i = 0; i < props.Count; i++)
             {
                 if (props[i].ColumnName.ToUpper().Trim() == column.ToUpper().Trim())
                 {
@@ -57,7 +57,7 @@ namespace KargorERP.Data.QueryHelpers
                     if (props[i].ColumnType == typeof(string))
                     {
 
-                    }  
+                    }
                 }
             }
 

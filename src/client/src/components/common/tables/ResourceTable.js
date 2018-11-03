@@ -43,7 +43,7 @@ class ResourceTable extends Component {
                 if (!column.headerClasses && column.optional !== false) column.headerClasses = secondaryHeaderFormatter;
                 return column;
             }),
-            records: [],
+            records: null,
             filteredRecords: [],
             searchTerms: ''
         };
@@ -91,6 +91,7 @@ class ResourceTable extends Component {
     };
 
     render() {
+        if (this.state.records === null) return (<div />); // don't render the page until we have some data.
         return (
             <div>
                 <div className="row">
@@ -106,7 +107,7 @@ class ResourceTable extends Component {
                         <NavLink className="btn btn-primary" to="/accounts/create">Create Account</NavLink>
                     </div>
                 </div>
-                <BootstrapTable keyField={this.state.primaryKey || 'id'} data={this.state.filteredRecords} columns={this.state.columns} pagination={paginationFactory({sizePerPage: 25})} bootstrap4={true} loading={true} />
+                <BootstrapTable keyField={this.state.primaryKey || 'id'} data={this.state.filteredRecords} columns={this.state.columns} pagination={paginationFactory({ sizePerPage: 25 })} bootstrap4={true} loading={true} />
             </div>
         );
     }
