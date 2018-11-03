@@ -1,9 +1,11 @@
 **/.env
 
-**/data/
 **/dist/
 **/bin/
 **/obj/
+
+**/data/
+!/src/test/data/
 
 **/node_modules/
 **/packages/
