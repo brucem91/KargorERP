@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using KargorERP.Data;
 using KargorERP.Data.Models.Accounts;
 using KargorERP.Data.QueryHelpers;
+using KargorERP.Services.Utilities;
 
 namespace KargorERP.Services.Accounts
 {
@@ -22,12 +23,12 @@ namespace KargorERP.Services.Accounts
 
         public async Task<List<Account>> GetAllAsync()
         {
-            return await _ctx.Accounts.Where(x => x.DeletedOn == null).ToListAsync();
+            return await _ctx.Accounts.AsNoTracking().Where(x => x.DeletedOn == null).ToListAsync();
         }
 
         public async Task<Account> CreateAsync(Account account)
         {
-            _ctx.Add(account);
+            await _ctx.AddAsync(account);
             await _ctx.SaveChangesAsync();
 
             return await FindAsync(account.Id);
@@ -38,9 +39,11 @@ namespace KargorERP.Services.Accounts
             return await _ctx.Accounts.FirstOrDefaultAsync(x => x.Id == id && x.DeletedOn == null);
         }
 
-        public async Task<Account> UpdateAsync(Account account)
+        public async Task<Account> UpdateAsync(Guid id, Account account)
         {
-            _ctx.Update(account);
+            var originalAccount = await FindAsync(id);
+
+            await _ctx.UpdateAsync(originalAccount, account);
             await _ctx.SaveChangesAsync();
 
             return await FindAsync(account.Id);

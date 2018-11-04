@@ -1,5 +1,6 @@
 const axios = require('./utilities/axios');
 const chunk = require('./utilities/chunk');
+const config = require('./config');
 
 const accounts = require('./data/accounts/accounts.json');
 const url = 'http://localhost:5000';
