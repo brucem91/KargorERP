@@ -30,7 +30,7 @@ class CreateAccountComponent extends Component {
         e.preventDefault();
 
         axios.post('/api/accounts', this.state.newAccount).then((res) => {
-            this.props.history.push('/accounts/view?accountid=' + res.data.AccountId);
+            this.props.history.push('/accounts/view?accountid=' + res.data.Id);
         }).catch((err) => {
             if (err.response === undefined) return;
             this.setState({ newAccountErrors: err.response.data });
