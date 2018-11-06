@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using KargorERP.Data;
@@ -33,7 +34,7 @@ namespace KargorERP.Services.Identity
             {
                 var password = new UserPassword()
                 {
-
+                    Password = new PasswordHasher<User>().HashPassword(user, newUserPassword)
                 };
 
                 _ctx.UserPasswords.Add(password);

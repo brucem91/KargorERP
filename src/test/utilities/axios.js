@@ -10,10 +10,16 @@ const createConfig = (method, url, data, config) => {
 };
 
 const formatResponse = (response) => {
-    if (!response.status) response = response.response; // wrapper for error
-    
+    console.log(response);
+    if (response.Error) {
+        console.log(response);
+        response.status = -1;
+        response.statusText = response.code
+    }
+
+    if (response.response) response = response.response; // wrapper for error    
     let result = {};
-    
+
     result['status'] = (response.status || 0);
     result['statusText'] = response.statusText;
     result['success'] = () => {
