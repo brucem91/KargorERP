@@ -16,12 +16,12 @@ namespace KargorERP.Services.Application
     public class ApplicationService : Service
     {
         protected ApplicationContext _ctx;
-        protected UserService _userService;
+        protected UserPasswordService _userPasswordService;
 
-        public ApplicationService(ApplicationContext ctx, UserService userService)
+        public ApplicationService(ApplicationContext ctx, UserPasswordService userPasswordService)
         {
             _ctx = ctx;
-            _userService = userService;
+            _userPasswordService = userPasswordService;
         }
 
         public async Task<ApplicationStatus> GetApplicationStatusAsync()
@@ -44,7 +44,16 @@ namespace KargorERP.Services.Application
                 PhoneNumber = PhoneNumber
             };
 
-            await _userService.CreateAsync(user, Password, false);
+            var password = new UserPassword()
+            {
+                Password = _userPasswordService.HashPassword(user, Password)
+            };
+
+            _ctx.Users.Add(user);
+            _ctx.UserPasswords.Add(password);
+
+            await _ctx.SaveChangesAsync();
+
             return await GetApplicationStatusAsync();
         }
     }
