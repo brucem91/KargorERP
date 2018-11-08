@@ -35,7 +35,7 @@ namespace KargorERP
             services.AddApplicationContext(); // custom code to inject our EntityFrameworkCore ApplicationContext
             services.AddScoped<ModelValidationAttribute>();
             services.RegisterAllClassesThatInheritType<Service>(); // adds all clases that extend class 'Service' to the DI Container
-            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 

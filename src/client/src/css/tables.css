@@ -1,5 +1,10 @@
 .table {
-    background-color: #fff;
+    background-color: #fff!important;
+}
+
+.react-bootstrap-table>.table>tbody>tr>td, .react-bootstrap-table>.table>thead>tr>th {
+    border-left: none!important;
+    border-right: none!important;
 }
 
 .table, .table>thead {

@@ -12,7 +12,6 @@ const createConfig = (method, url, data, config) => {
 const formatResponse = (response) => {
     console.log(response);
     if (response.Error) {
-        console.log(response);
         response.status = -1;
         response.statusText = response.code
     }

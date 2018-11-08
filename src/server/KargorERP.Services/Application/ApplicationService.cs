@@ -27,6 +27,7 @@ namespace KargorERP.Services.Application
         public async Task<ApplicationStatus> GetApplicationStatusAsync()
         {
             var query = from u in _ctx.Users
+                        orderby u.CreatedOn
                         select u.Id;
 
             return new ApplicationStatus()
