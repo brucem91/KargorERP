@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using KargorERP.Data;
@@ -13,10 +12,12 @@ namespace KargorERP.Services.Identity
     public class UserService : Service
     {
         protected readonly ApplicationContext _ctx;
+        protected readonly UserPasswordService _userPasswordService;
 
-        public UserService(ApplicationContext ctx)
+        public UserService(ApplicationContext ctx, UserPasswordService userPasswordService)
         {
             _ctx = ctx;
+            _userPasswordService = userPasswordService;
         }
 
         public async Task<User> CreateAsync(User newUser, string newUserPassword = "", bool notifyUser = false)
@@ -34,7 +35,7 @@ namespace KargorERP.Services.Identity
             {
                 var password = new UserPassword()
                 {
-                    Password = new PasswordHasher<User>().HashPassword(user, newUserPassword)
+                    Password = _userPasswordService.HashPassword(user, newUserPassword)
                 };
 
                 _ctx.UserPasswords.Add(password);

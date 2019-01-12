@@ -8,19 +8,21 @@ using Microsoft.EntityFrameworkCore;
 using KargorERP.Data;
 using KargorERP.Data.Models.Identity;
 
-namespace KargorERP.Services.IdentityService
+namespace KargorERP.Services.Identity
 {
     public class IdentityService
     {
         protected readonly ApplicationContext _ctx;
         protected readonly IHttpContextAccessor _context;
+        protected readonly UserPasswordService _userPasswordService;
         protected readonly string _tokenName;
         private User _currentUser = null;
 
-        public IdentityService(ApplicationContext ctx, IHttpContextAccessor context)
+        public IdentityService(ApplicationContext ctx, IHttpContextAccessor context, UserPasswordService userPasswordService)
         {
             _context = context;
             _ctx = ctx;
+            _userPasswordService = userPasswordService;
             _tokenName = "x-access-token";
         }
 
