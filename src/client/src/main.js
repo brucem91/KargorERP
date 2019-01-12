@@ -10,6 +10,8 @@ class Main extends Component {
 
         var currentRoute = window.location.hash.replace('#/', '/').toLowerCase().trim();
 
+        alert(currentRoute);
+
         axios.get('/api/application/status')
             .then((results) => {
                 if (results.data.IsInitialized === false && currentRoute !== '/initialize'){

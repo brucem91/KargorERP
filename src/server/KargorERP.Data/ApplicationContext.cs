@@ -40,33 +40,34 @@ namespace KargorERP.Data
 
             foreach (var entry in ChangeTracker.Entries().Where(x => x.State == EntityState.Added))
             {
-                if (entry.GetType().IsAssignableFrom(Model.GetType()))
-                {
-                    var entity = entry.Entity as KargorERP.Data.Models.Model;
+                var entity = entry.Entity as KargorERP.Data.Models.Model;
 
-                    entity.CreatedOn = now;
-                    entity.UpdatedOn = now;
-                }
+                entity.CreatedOn = now;
+                entity.UpdatedOn = now;
             }
 
             foreach (var entry in ChangeTracker.Entries().Where(x => x.State == EntityState.Modified))
             {
-                if (entry.GetType().IsAssignableFrom(Model.GetType()))
-                {
-                    (entry.Entity as KargorERP.Data.Models.Model).UpdatedOn = now;
-                }
+                (entry.Entity as KargorERP.Data.Models.Model).UpdatedOn = now;
             }
 
             foreach (var entry in ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted))
             {
-                if (entry.GetType().IsAssignableFrom(Model.GetType()))
-                {
-                    entry.State = EntityState.Modified;
-                    (entry.Entity as KargorERP.Data.Models.Model).DeletedOn = now;
-                }
+                entry.State = EntityState.Modified;
+                (entry.Entity as KargorERP.Data.Models.Model).DeletedOn = now;
             }
 
             return base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override int SaveChanges()
+        {
+            return SaveChanges(true);
+        }
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            throw new NotSupportedException();
         }
     }
 }
